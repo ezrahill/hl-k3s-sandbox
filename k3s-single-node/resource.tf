@@ -36,6 +36,9 @@ resource "proxmox_vm_qemu" "k3s-sandbox-vm" {
 }
 
 resource "null_resource" "ansible_provisioner" {
+  depends_on = [
+    proxmox_vm_qemu.k3s-sandbox-vm
+  ]
   # Triggers to ensure the resource updates
   triggers = {
     always_run = "${timestamp()}"
